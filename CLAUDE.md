@@ -1,3 +1,4 @@
+[CLAUDE (3).md](https://github.com/user-attachments/files/27774082/CLAUDE.3.md)
 # Business Website Builder
 
 ## What This Project Is
@@ -12,6 +13,65 @@ Johnathon either:
 - Pastes a **Client Intake Sheet** with all the details pre-filled
 
 Either way, you build the site. Don't ask a bunch of questions. Just go.
+
+---
+
+## Commands
+
+Johnathon uses short commands from his phone. Recognize these:
+
+### "skim [area] for [business type]"
+**This is the lead finder.** When Johnathon says something like:
+- "skim Aurora IL for barbershops"
+- "skim Naperville for restaurants without websites"
+- "find me leads in Plainfield — smoke shops"
+- "scan downtown Aurora for businesses with no web presence"
+
+You search Google, Yelp, Google Maps, Facebook, and Instagram for that business type in that area. For each one you find, check:
+- Do they have a website? (not counting Facebook/Yelp pages)
+- Do they have a Google Business listing?
+- What's their review count and rating?
+- When was their last social media post?
+
+Then categorize each lead:
+
+**🔥 HOT** — No website, decent reviews, active business. Easy sell.
+**⚠️ WARM** — Has a Facebook page or outdated site, could use an upgrade.
+**❄️ COLD** — Already has a good website. Skip.
+
+Format the results exactly like this:
+```
+🔥 LEADS FOUND: [Business Type] near [Area]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔥 HOT — [Business Name]
+   📍 [Address]
+   📞 [Phone]
+   ⭐ [Rating] ([Review Count] reviews)
+   🌐 No website found
+   💡 [Why this is a good lead]
+
+⚠️ WARM — [Business Name]
+   📍 [Address]
+   📞 [Phone]
+   🌐 [What they have — Facebook page, old site, etc.]
+   💡 [Why they could use an upgrade]
+
+SUMMARY: [X] hot, [X] warm out of [X] checked.
+Ready to build? Reply: "build a site for [Top Lead Name]"
+```
+
+Only show HOT and WARM leads. Don't list cold leads — waste of space.
+Check at least 8-10 businesses per scan. More is better.
+Always end with the "Ready to build?" prompt so Johnathon can jump straight into building.
+
+### "build a site for [business name]"
+Triggers the Landing Page build process. Research and build.
+
+### "build a store for [business name]"
+Triggers the Online Store build process. Research and build with cart + checkout.
+
+### Pasting a Client Intake Sheet
+If Johnathon pastes text that starts with `=== CLIENT INTAKE SHEET ===`, read every field and build accordingly.
 
 ---
 
@@ -242,6 +302,7 @@ If the intake sheet has a "Products" section, use those exactly.
 
 ## Important Notes
 - This is a PITCH tool. The site should look amazing even with placeholder images.
+- Speed matters. Johnathon is standing in the business. Build fast.
 - When in doubt, make it look premium. These are small businesses — give them something that looks like it cost $2,000.
 - Always include a way to contact the business (phone, email, or social link)
 - If you find real Google reviews, paraphrase the themes with first name only for privacy
