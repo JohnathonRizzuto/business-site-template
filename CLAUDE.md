@@ -144,6 +144,15 @@ The site deploys through GitHub → Vercel. After customizing:
 - Always include a way to contact the business (phone, email, or social link)
 - If you find real Google reviews, use them (with first name only for privacy)
 
+## Research (REQUIRED — DO NOT SKIP)
+Every time you build a site, you MUST search Google for the business first and find:
+- **Real hours of operation** — put them in a dedicated Hours section. No placeholder hours.
+- **Real address** — put it in the Contact/Map section. No fake addresses.
+- **Real phone number**
+- **Real photos** — use any real photos you find instead of Unsplash stock images.
+
+If you find their Google Business listing, pull everything from there. Never skip the research step.
+
 ## Notifications (REQUIRED)
 After finishing a skim or a site build, send a notification to Johnathon's phone by running this command:
 
