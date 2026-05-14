@@ -131,11 +131,17 @@ Change the Google Fonts `<link>` tag AND the CSS `font-family` declarations to m
 - Keep class names short but readable
 - All images use placeholder URLs from unsplash or similar — add comments noting "REPLACE WITH REAL PHOTO"
 
-## Deployment
-The site deploys through GitHub → Vercel. After customizing:
-1. Commit the changes
-2. Push to GitHub
-3. Vercel auto-deploys
+## Deployment (REQUIRED — one repo per business)
+Every site you build goes to its OWN GitHub repo. Never overwrite or push customized site code back into the `business-site-template` repo — that repo holds only the blank template.
+
+For each new build:
+1. **Create a new GitHub repo** under Johnathon's account, named after the business in kebab-case (e.g. "rons-barber-shop", "tinas-coffee-shop", "exclusive-fades-barbershop"). Strip "the", punctuation, and "LLC/Inc".
+2. **Initialize it** with the customized `index.html` (and only that file — no CLAUDE.md, no template artifacts).
+3. **Push** to that new repo's `main` branch.
+4. **Connect the repo to Vercel** as a new project so it auto-deploys. Use Vercel's GitHub integration (no build config needed — it's a static single-file site).
+5. **Capture the live Vercel URL** and include it in the ntfy notification per the Notifications rule.
+
+The `business-site-template` repo stays clean: it is the source the customization is generated FROM, not the target the build is pushed TO.
 
 ## Important Notes
 - This is a PITCH tool. The site should look amazing even with placeholder images.
