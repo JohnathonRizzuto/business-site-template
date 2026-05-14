@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{BUSINESS_NAME}} — {{TAGLINE}}</title>
+<meta name="description" content="{{META_DESCRIPTION}}">
+
+<!-- FONTS: Replace with chosen Google Fonts pair -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ════════════════════════════════════════════════════════
+   THEME VARIABLES — CLAUDE CODE: CUSTOMIZE ALL OF THESE
+   ════════════════════════════════════════════════════════ */
+:root{
+  --color-bg:#0c0b09;
+  --color-surface:#161412;
+  --color-surface-hover:#1e1c18;
+  --color-text:#f2ece4;
+  --color-text-muted:#8a8172;
+  --color-accent:#c8a45e;
+  --color-accent-hover:#d4b76e;
+  --color-border:rgba(255,255,255,.08);
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'Nunito',sans-serif;
+  --radius:14px;
+  --radius-sm:8px;
+  --radius-full:50px;
+}
+
+body{font-family:var(--font-body);background:var(--color-bg);color:var(--color-text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ─── SCROLL ANIMATIONS ─── */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-up.d1{transition-delay:.1s}
+.fade-up.d2{transition-delay:.2s}
+.fade-up.d3{transition-delay:.3s}
+.fade-up.d4{transition-delay:.4s}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:background .3s,box-shadow .3s}
+.nav.scrolled{background:rgba(12,11,9,.95);box-shadow:0 4px 30px rgba(0,0,0,.3);backdrop-filter:blur(12px)}
+.nav-brand{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.02em;color:var(--color-text)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--color-text-muted);transition:color .2s}
+.nav-links a:hover{color:var(--color-accent)}
+.nav-cta{background:var(--color-accent);color:var(--color-bg);padding:10px 24px;border-radius:var(--radius-full);font-size:.76rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:background .2s,transform .15s;border:none;cursor:pointer;font-family:var(--font-body)}
+.nav-cta:hover{background:var(--color-accent-hover);transform:translateY(-1px)}
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px}
+.menu-toggle span{display:block;width:24px;height:2px;background:var(--color-text);margin:5px 0;transition:all .3s}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:6rem 2rem 4rem}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,11,9,.7) 0%,rgba(12,11,9,.5) 40%,rgba(12,11,9,.85) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-label{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--color-accent);font-weight:700;margin-bottom:1rem;display:block}
+.hero-title{font-family:var(--font-display);font-size:clamp(2.4rem,6vw,4.2rem);line-height:1.1;margin-bottom:1rem;color:var(--color-text)}
+.hero-sub{font-size:1.05rem;color:var(--color-text-muted);line-height:1.7;max-width:500px;margin:0 auto 2rem;font-weight:300}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--color-accent);color:var(--color-bg);padding:14px 32px;border-radius:var(--radius-full);font-size:.82rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:all .2s;border:none;cursor:pointer;font-family:var(--font-body)}
+.btn-primary:hover{background:var(--color-accent-hover);transform:translateY(-2px)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--color-border);color:var(--color-text);padding:12px 28px;border-radius:var(--radius-full);font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
+.btn-outline:hover{border-color:var(--color-accent);color:var(--color-accent)}
+
+/* ─── STATS BAR ─── */
+.stats{background:var(--color-surface);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.2rem);color:var(--color-accent);display:block}
+.stat-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--color-text-muted);font-weight:600;margin-top:.3rem}
+
+/* ─── SECTION SHARED ─── */
+.sec{padding:5rem 2rem}
+.sec-label{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--color-accent);font-weight:700;margin-bottom:.6rem;display:block}
+.sec-title{font-family:var(--font-display);font-size:clamp(1.6rem,3.5vw,2.6rem);line-height:1.15;margin-bottom:1rem;color:var(--color-text)}
+.sec-desc{color:var(--color-text-muted);font-size:.94rem;line-height:1.8;max-width:550px}
+.sec-center{text-align:center;max-width:600px;margin:0 auto}
+.sec-center .sec-desc{margin:0 auto 2.5rem}
+
+/* ─── ABOUT ─── */
+.about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-img{border-radius:var(--radius);overflow:hidden;position:relative;aspect-ratio:4/5}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.about-img-badge{position:absolute;bottom:1.2rem;left:1.2rem;background:rgba(12,11,9,.85);backdrop-filter:blur(8px);padding:10px 18px;border-radius:var(--radius-sm);font-size:.74rem;font-weight:700;color:var(--color-accent);letter-spacing:.06em}
+.about-text .sec-desc{max-width:none;margin-bottom:1rem}
+.about-quote{font-family:var(--font-display);font-style:italic;font-size:1.1rem;color:var(--color-accent);border-left:3px solid var(--color-accent);padding-left:1.2rem;margin:1.5rem 0;line-height:1.6}
+
+/* ─── SERVICES / MENU ─── */
+.services-grid{max-width:1100px;margin:2rem auto 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.svc-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:2rem;transition:transform .2s,border-color .2s}
+.svc-card:hover{transform:translateY(-4px);border-color:var(--color-accent)}
+.svc-icon{font-size:1.8rem;margin-bottom:1rem;display:block}
+.svc-name{font-family:var(--font-display);font-size:1.15rem;margin-bottom:.5rem;color:var(--color-text)}
+.svc-desc{font-size:.84rem;color:var(--color-text-muted);line-height:1.7}
+.svc-price{font-family:var(--font-display);font-size:1.1rem;color:var(--color-accent);margin-top:.8rem;display:block}
+
+/* ─── GALLERY ─── */
+.gallery-grid{max-width:1100px;margin:2rem auto 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+.gal-card{border-radius:var(--radius);overflow:hidden;position:relative;aspect-ratio:4/3;cursor:pointer}
+.gal-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gal-card:hover img{transform:scale(1.06)}
+.gal-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,11,9,.8),transparent 50%);opacity:0;transition:opacity .3s}
+.gal-card:hover .gal-ov{opacity:1}
+.gal-label{position:absolute;bottom:1rem;left:1rem;right:1rem;transform:translateY(8px);opacity:0;transition:all .3s}
+.gal-card:hover .gal-label{transform:translateY(0);opacity:1}
+.gal-label h4{font-family:var(--font-display);color:#fff;font-size:.95rem;margin-bottom:.2rem}
+.gal-label p{color:rgba(255,255,255,.7);font-size:.74rem}
+
+/* ─── TESTIMONIALS ─── */
+.testi-grid{max-width:900px;margin:2rem auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem}
+.testi-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:1.8rem}
+.testi-stars{color:var(--color-accent);font-size:.9rem;margin-bottom:.8rem;letter-spacing:2px}
+.testi-text{font-family:var(--font-display);font-style:italic;font-size:.92rem;color:var(--color-text);line-height:1.65;margin-bottom:1rem}
+.testi-author{font-size:.72rem;color:var(--color-text-muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+
+/* ─── PRICING ─── */
+.pricing-grid{max-width:900px;margin:2rem auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+.price-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:2.2rem;text-align:center;transition:transform .2s,border-color .2s}
+.price-card:hover{transform:translateY(-4px);border-color:var(--color-accent)}
+.price-card.featured{border-color:var(--color-accent);position:relative}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--color-accent);color:var(--color-bg);font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:var(--radius-full)}
+.price-name{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--color-text-muted);font-weight:700;margin-bottom:.6rem}
+.price-amount{font-family:var(--font-display);font-size:2.4rem;color:var(--color-text);margin-bottom:.3rem}
+.price-period{font-size:.78rem;color:var(--color-text-muted);margin-bottom:1.5rem}
+.price-features{list-style:none;margin-bottom:1.8rem;text-align:left}
+.price-features li{font-size:.84rem;color:var(--color-text-muted);padding:.5rem 0;border-bottom:1px solid var(--color-border);display:flex;align-items:center;gap:.5rem}
+.price-features li::before{content:"✓";color:var(--color-accent);font-weight:700;font-size:.7rem}
+
+/* ─── FAQ ─── */
+.faq-wrap{max-width:700px;margin:2rem auto 0}
+.faq-item{border-bottom:1px solid var(--color-border)}
+.faq-q{width:100%;background:none;border:none;padding:1.3rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:var(--font-body);text-align:left}
+.faq-q h4{font-family:var(--font-display);font-size:1rem;color:var(--color-text);font-weight:400}
+.faq-toggle{color:var(--color-accent);font-size:1.2rem;transition:transform .3s}
+.faq-item.open .faq-toggle{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:1.3rem}
+.faq-a p{font-size:.88rem;color:var(--color-text-muted);line-height:1.75}
+
+/* ─── NEWSLETTER ─── */
+.news-sec{background:var(--color-surface);text-align:center}
+.news-form{display:flex;max-width:420px;margin:0 auto;border-radius:var(--radius-full);overflow:hidden;border:1px solid var(--color-border)}
+.news-form input{flex:1;padding:14px 20px;border:none;background:transparent;color:var(--color-text);font-size:.88rem;outline:none;font-family:var(--font-body)}
+.news-form input::placeholder{color:var(--color-text-muted)}
+.news-form button{background:var(--color-accent);color:var(--color-bg);border:none;padding:14px 24px;font-weight:800;font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;font-family:var(--font-body);transition:background .2s}
+.news-form button:hover{background:var(--color-accent-hover)}
+
+/* ─── CONTACT / FINAL CTA ─── */
+.contact-sec{text-align:center;padding:6rem 2rem}
+.contact-info{max-width:500px;margin:2rem auto 0;display:grid;gap:1rem}
+.contact-row{display:flex;align-items:center;gap:1rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius);padding:1.2rem 1.5rem;text-align:left}
+.contact-row-icon{font-size:1.2rem;flex-shrink:0}
+.contact-row-label{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-muted);font-weight:700}
+.contact-row-value{font-size:.95rem;color:var(--color-text);margin-top:.15rem}
+.contact-row-value a{color:var(--color-accent);transition:opacity .2s}
+.contact-row-value a:hover{opacity:.8}
+
+/* ─── MAP ─── */
+.map-wrap{width:100%;height:300px;border-radius:var(--radius);overflow:hidden;margin-top:2rem;max-width:700px;margin-left:auto;margin-right:auto;border:1px solid var(--color-border)}
+.map-wrap iframe{width:100%;height:100%;border:0;filter:grayscale(.8) contrast(1.1) brightness(.7)}
+
+/* ─── SOCIAL BAR ─── */
+.socials{display:flex;justify-content:center;gap:10px;margin-top:1.5rem;flex-wrap:wrap}
+.soc-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:var(--radius-full);font-size:.74rem;font-weight:700;letter-spacing:.04em;transition:opacity .2s;color:#fff}
+.soc-btn:hover{opacity:.85}
+.soc-btn.fb{background:#1877f2}
+.soc-btn.ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}
+.soc-btn.tt{background:#010101}
+.soc-btn.yelp{background:#d32323}
+.soc-btn.goog{background:#4285f4}
+
+/* ─── FOOTER ─── */
+.footer{background:var(--color-surface);border-top:1px solid var(--color-border);padding:3rem 2rem;text-align:center}
+.footer-brand{font-family:var(--font-display);font-size:1.2rem;color:var(--color-text);margin-bottom:.5rem}
+.footer-tagline{font-family:var(--font-display);font-style:italic;color:var(--color-text-muted);font-size:.85rem;margin-bottom:1rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.footer-links a{font-size:.76rem;color:var(--color-text-muted);letter-spacing:.08em;text-transform:uppercase;font-weight:600;transition:color .2s}
+.footer-links a:hover{color:var(--color-accent)}
+.footer-copy{font-size:.7rem;color:var(--color-text-muted);opacity:.6}
+
+/* ─── MOBILE ─── */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-cta{display:none}
+  .menu-toggle{display:block}
+  .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(12,11,9,.97);padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid var(--color-border)}
+  .hero{min-height:90vh;padding:5rem 1.5rem 3rem}
+  .hero-title{font-size:clamp(2rem,8vw,3rem)}
+  .about-grid{grid-template-columns:1fr;gap:2rem}
+  .about-img{max-width:400px;margin:0 auto}
+  .stats{gap:1.5rem;padding:1.5rem 1rem}
+  .sec{padding:3.5rem 1.2rem}
+  .services-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .contact-sec{padding:4rem 1.2rem}
+  .map-wrap{height:220px;border-radius:var(--radius-sm)}
+}
+@media(max-width:480px){
+  .gallery-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:center}
+  .stats{flex-direction:column;gap:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAV
+     ═══════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-brand">{{BUSINESS_NAME}}</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <!-- CLAUDE CODE: Add/remove nav links to match sections you keep -->
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+  <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <!-- REPLACE WITH REAL PHOTO or relevant Unsplash image -->
+    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1400&q=80" alt="{{BUSINESS_NAME}}">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-label fade-up">{{HERO_LABEL — e.g. "Est. 2015 · Aurora, IL"}}</span>
+    <h1 class="hero-title fade-up d1">{{BUSINESS_NAME}}</h1>
+    <p class="hero-sub fade-up d2">{{TAGLINE or short description}}</p>
+    <div class="hero-btns fade-up d3">
+      <a href="#services" class="btn-primary">{{PRIMARY CTA — e.g. "View Menu"}}</a>
+      <a href="#contact" class="btn-outline">{{SECONDARY CTA — e.g. "Visit Us"}}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     STATS BAR (OPTIONAL — remove if not relevant)
+     ═══════════════════════════════════════ -->
+<div class="stats">
+  <div class="stat fade-up">
+    <span class="stat-num">{{NUMBER}}</span>
+    <span class="stat-label">{{LABEL — e.g. "Years Open"}}</span>
+  </div>
+  <div class="stat fade-up d1">
+    <span class="stat-num">{{NUMBER}}</span>
+    <span class="stat-label">{{LABEL — e.g. "5-Star Reviews"}}</span>
+  </div>
+  <div class="stat fade-up d2">
+    <span class="stat-num">{{NUMBER}}</span>
+    <span class="stat-label">{{LABEL — e.g. "Happy Customers"}}</span>
+  </div>
+  <div class="stat fade-up d3">
+    <span class="stat-num">{{NUMBER}}</span>
+    <span class="stat-label">{{LABEL}}</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ABOUT
+     ═══════════════════════════════════════ -->
+<section class="sec" id="about">
+  <div class="about-grid">
+    <div class="about-img fade-up">
+      <!-- REPLACE WITH REAL PHOTO -->
+      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="About {{BUSINESS_NAME}}">
+      <div class="about-img-badge">{{BADGE — e.g. "Family Owned"}}</div>
+    </div>
+    <div class="about-text">
+      <span class="sec-label fade-up">Our Story</span>
+      <h2 class="sec-title fade-up d1">{{ABOUT HEADING}}</h2>
+      <p class="sec-desc fade-up d2">{{ABOUT PARAGRAPH 1}}</p>
+      <p class="sec-desc fade-up d3">{{ABOUT PARAGRAPH 2}}</p>
+      <blockquote class="about-quote fade-up d4">"{{OWNER QUOTE or mission statement}}"</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SERVICES / MENU
+     ═══════════════════════════════════════ -->
+<section class="sec" id="services" style="background:var(--color-surface)">
+  <div class="sec-center">
+    <span class="sec-label fade-up">{{LABEL — e.g. "What We Offer"}}</span>
+    <h2 class="sec-title fade-up d1">{{TITLE}}</h2>
+    <p class="sec-desc fade-up d2">{{DESCRIPTION}}</p>
+  </div>
+  <div class="services-grid">
+    <!-- CLAUDE CODE: Add as many cards as needed -->
+    <div class="svc-card fade-up">
+      <span class="svc-icon">{{EMOJI}}</span>
+      <h3 class="svc-name">{{SERVICE NAME}}</h3>
+      <p class="svc-desc">{{SERVICE DESCRIPTION}}</p>
+      <span class="svc-price">{{PRICE — or remove this line}}</span>
+    </div>
+    <div class="svc-card fade-up d1">
+      <span class="svc-icon">{{EMOJI}}</span>
+      <h3 class="svc-name">{{SERVICE NAME}}</h3>
+      <p class="svc-desc">{{SERVICE DESCRIPTION}}</p>
+      <span class="svc-price">{{PRICE}}</span>
+    </div>
+    <div class="svc-card fade-up d2">
+      <span class="svc-icon">{{EMOJI}}</span>
+      <h3 class="svc-name">{{SERVICE NAME}}</h3>
+      <p class="svc-desc">{{SERVICE DESCRIPTION}}</p>
+      <span class="svc-price">{{PRICE}}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     GALLERY (OPTIONAL — best for visual businesses)
+     ═══════════════════════════════════════ -->
+<section class="sec" id="gallery">
+  <div class="sec-center">
+    <span class="sec-label fade-up">{{LABEL — e.g. "Our Work"}}</span>
+    <h2 class="sec-title fade-up d1">{{TITLE}}</h2>
+    <p class="sec-desc fade-up d2">{{DESCRIPTION}}</p>
+  </div>
+  <div class="gallery-grid">
+    <!-- REPLACE all images -->
+    <div class="gal-card fade-up">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="">
+      <div class="gal-ov"></div>
+      <div class="gal-label"><h4>{{CAPTION}}</h4><p>{{SUBCAPTION}}</p></div>
+    </div>
+    <div class="gal-card fade-up d1">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="">
+      <div class="gal-ov"></div>
+      <div class="gal-label"><h4>{{CAPTION}}</h4><p>{{SUBCAPTION}}</p></div>
+    </div>
+    <div class="gal-card fade-up d2">
+      <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=600&q=80" alt="">
+      <div class="gal-ov"></div>
+      <div class="gal-label"><h4>{{CAPTION}}</h4><p>{{SUBCAPTION}}</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     TESTIMONIALS (OPTIONAL — use if you find real reviews)
+     ═══════════════════════════════════════ -->
+<section class="sec" id="reviews" style="background:var(--color-surface)">
+  <div class="sec-center">
+    <span class="sec-label fade-up">Reviews</span>
+    <h2 class="sec-title fade-up d1">What People Are Saying</h2>
+    <p class="sec-desc fade-up d2">Real reviews from real customers.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"{{REVIEW TEXT}}"</p>
+      <span class="testi-author">— {{FIRST NAME}}</span>
+    </div>
+    <div class="testi-card fade-up d1">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"{{REVIEW TEXT}}"</p>
+      <span class="testi-author">— {{FIRST NAME}}</span>
+    </div>
+    <div class="testi-card fade-up d2">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"{{REVIEW TEXT}}"</p>
+      <span class="testi-author">— {{FIRST NAME}}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PRICING (OPTIONAL — for service businesses)
+     ═══════════════════════════════════════ -->
+<section class="sec" id="pricing">
+  <div class="sec-center">
+    <span class="sec-label fade-up">Pricing</span>
+    <h2 class="sec-title fade-up d1">{{PRICING TITLE}}</h2>
+    <p class="sec-desc fade-up d2">{{PRICING DESCRIPTION}}</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card fade-up">
+      <div class="price-name">{{TIER NAME}}</div>
+      <div class="price-amount">{{PRICE}}</div>
+      <div class="price-period">{{PERIOD}}</div>
+      <ul class="price-features">
+        <li>{{FEATURE}}</li>
+        <li>{{FEATURE}}</li>
+        <li>{{FEATURE}}</li>
+      </ul>
+      <a href="#contact" class="btn-primary" style="width:100%;justify-content:center">Get Started</a>
+    </div>
+    <div class="price-card featured fade-up d1">
+      <span class="price-badge">Most Popular</span>
+      <div class="price-name">{{TIER NAME}}</div>
+      <div class="price-amount">{{PRICE}}</div>
+      <div class="price-period">{{PERIOD}}</div>
+      <ul class="price-features">
+        <li>{{FEATURE}}</li>
+        <li>{{FEATURE}}</li>
+        <li>{{FEATURE}}</li>
+        <li>{{FEATURE}}</li>
+      </ul>
+      <a href="#contact" class="btn-primary" style="width:100%;justify-content:center">Get Started</a>
+    </div>
+    <div class="price-card fade-up d2">
+      <div class="price-name">{{TIER NAME}}</div>
+      <div class="price-amount">{{PRICE}}</div>
+      <div class="price-period">{{PERIOD}}</div>
+      <ul class="price-features">
+        <li>{{FEATURE}}</li>
+        <li>{{FEATURE}}</li>
+        <li>{{FEATURE}}</li>
+        <li>{{FEATURE}}</li>
+        <li>{{FEATURE}}</li>
+      </ul>
+      <a href="#contact" class="btn-primary" style="width:100%;justify-content:center">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FAQ (OPTIONAL)
+     ═══════════════════════════════════════ -->
+<section class="sec" id="faq" style="background:var(--color-surface)">
+  <div class="sec-center">
+    <span class="sec-label fade-up">FAQ</span>
+    <h2 class="sec-title fade-up d1">Common Questions</h2>
+  </div>
+  <div class="faq-wrap">
+    <div class="faq-item fade-up">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <h4>{{QUESTION}}</h4><span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-a"><p>{{ANSWER}}</p></div>
+    </div>
+    <div class="faq-item fade-up d1">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <h4>{{QUESTION}}</h4><span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-a"><p>{{ANSWER}}</p></div>
+    </div>
+    <div class="faq-item fade-up d2">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <h4>{{QUESTION}}</h4><span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-a"><p>{{ANSWER}}</p></div>
+    </div>
+    <div class="faq-item fade-up d3">
+      <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+        <h4>{{QUESTION}}</h4><span class="faq-toggle">+</span>
+      </button>
+      <div class="faq-a"><p>{{ANSWER}}</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     NEWSLETTER (OPTIONAL)
+     ═══════════════════════════════════════ -->
+<section class="sec news-sec">
+  <div class="sec-center">
+    <span class="sec-label fade-up">Stay Connected</span>
+    <h2 class="sec-title fade-up d1">{{NEWSLETTER TITLE}}</h2>
+    <p class="sec-desc fade-up d2">{{NEWSLETTER DESCRIPTION}}</p>
+  </div>
+  <div class="fade-up d3">
+    <div class="news-form">
+      <input type="email" placeholder="Enter your email">
+      <button type="button">Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CONTACT / FINAL CTA
+     ═══════════════════════════════════════ -->
+<section class="sec contact-sec" id="contact">
+  <span class="sec-label fade-up">Get in Touch</span>
+  <h2 class="sec-title fade-up d1" style="font-size:clamp(1.8rem,4vw,3rem)">{{CTA TITLE}}</h2>
+  <p class="sec-desc fade-up d2" style="max-width:500px;margin:0 auto">{{CTA DESCRIPTION}}</p>
+
+  <div class="contact-info fade-up d3">
+    <div class="contact-row">
+      <span class="contact-row-icon">📍</span>
+      <div>
+        <div class="contact-row-label">Address</div>
+        <div class="contact-row-value">{{FULL ADDRESS}}</div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <span class="contact-row-icon">📞</span>
+      <div>
+        <div class="contact-row-label">Phone</div>
+        <div class="contact-row-value"><a href="tel:{{PHONE}}">{{PHONE FORMATTED}}</a></div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <span class="contact-row-icon">🕐</span>
+      <div>
+        <div class="contact-row-label">Hours</div>
+        <div class="contact-row-value">{{HOURS}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOCIAL LINKS — keep only the ones that exist -->
+  <div class="socials fade-up d4">
+    <a class="soc-btn fb" href="{{FACEBOOK_URL}}" target="_blank">📘 Facebook</a>
+    <a class="soc-btn ig" href="{{INSTAGRAM_URL}}" target="_blank">📸 Instagram</a>
+    <!-- <a class="soc-btn tt" href="{{TIKTOK_URL}}" target="_blank">🎵 TikTok</a> -->
+    <!-- <a class="soc-btn yelp" href="{{YELP_URL}}" target="_blank">⭐ Yelp</a> -->
+  </div>
+
+  <!-- MAP -->
+  <div class="map-wrap fade-up">
+    <iframe src="https://www.google.com/maps/embed?pb={{GOOGLE_MAPS_EMBED_PARAMS}}" allowfullscreen loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-brand">{{BUSINESS_NAME}}</div>
+  <div class="footer-tagline">{{TAGLINE}}</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 {{BUSINESS_NAME}} · All rights reserved</div>
+</footer>
+
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════ -->
+<script>
+// ── NAV SCROLL EFFECT ──
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function(){
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var target = document.querySelector(this.getAttribute('href'));
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+      document.getElementById('navLinks').classList.remove('open');
+    }
+  });
+});
+
+// ── SCROLL ANIMATIONS ──
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+}, {threshold:0.1, rootMargin:'0px 0px -40px 0px'});
+
+document.querySelectorAll('.fade-up').forEach(function(el){
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
