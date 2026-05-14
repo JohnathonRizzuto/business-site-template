@@ -57,10 +57,11 @@ img{max-width:100%;display:block}
 .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px}
 .menu-toggle span{display:block;width:24px;height:2px;background:var(--color-ink);margin:5px 0;transition:all .3s}
 
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:7rem 2rem 4rem}
-.hero-bg{position:absolute;inset:0;z-index:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;filter:sepia(.25) contrast(1.05) brightness(.78)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(34,28,23,.55) 0%,rgba(34,28,23,.4) 40%,rgba(34,28,23,.7) 100%);z-index:1}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:7rem 2rem 4rem;background:radial-gradient(ellipse at top,#2a221c 0%,var(--color-ink) 55%,#15110d 100%)}
+.hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(168,36,44,.05) 0 30px,transparent 30px 60px,rgba(245,239,227,.03) 60px 90px,transparent 90px 120px);z-index:0}
+.hero-pole{position:absolute;top:0;bottom:0;width:14px;z-index:1;background:repeating-linear-gradient(-45deg,var(--color-accent) 0 18px,#fff 18px 36px,var(--color-ink) 36px 54px);box-shadow:0 0 30px rgba(0,0,0,.4)}
+.hero-pole.left{left:6%}
+.hero-pole.right{right:6%}
 .hero-content{position:relative;z-index:2;max-width:780px}
 .hero-est{font-family:var(--font-display);font-size:.78rem;letter-spacing:.35em;text-transform:uppercase;color:#f5efe3;font-weight:500;margin-bottom:1.2rem;display:inline-block;padding:.4rem 1.1rem;border:1px solid rgba(245,239,227,.4);border-radius:var(--radius-sm)}
 .hero-title{font-family:var(--font-display);font-size:clamp(2.8rem,8vw,5.4rem);line-height:1;margin-bottom:.8rem;color:#fff;letter-spacing:.04em;text-transform:uppercase}
@@ -85,9 +86,14 @@ img{max-width:100%;display:block}
 .sec-center .sec-desc{margin:0 auto 2.5rem}
 
 .about-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.about-img{border-radius:var(--radius);overflow:hidden;position:relative;aspect-ratio:4/5;box-shadow:0 14px 40px rgba(34,28,23,.18)}
-.about-img img{width:100%;height:100%;object-fit:cover}
-.about-img-badge{position:absolute;bottom:1.2rem;left:1.2rem;background:var(--color-accent);color:#fff;padding:8px 16px;border-radius:var(--radius-sm);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-family:var(--font-display)}
+.shopsign{aspect-ratio:4/5;border-radius:var(--radius);background:var(--color-ink);color:#f5efe3;display:flex;flex-direction:column;justify-content:space-between;padding:2.4rem;position:relative;overflow:hidden;box-shadow:0 18px 50px rgba(34,28,23,.22);border:1px solid rgba(245,239,227,.08)}
+.shopsign::before{content:"";position:absolute;top:0;bottom:0;right:0;width:18px;background:repeating-linear-gradient(-45deg,var(--color-accent) 0 16px,#fff 16px 32px,var(--color-ink) 32px 48px)}
+.shopsign-top{font-family:var(--font-display);letter-spacing:.32em;font-size:.78rem;color:rgba(245,239,227,.55);text-transform:uppercase;font-weight:500}
+.shopsign-num{font-family:var(--font-display);font-size:clamp(7rem,18vw,11rem);line-height:.85;color:#fff;letter-spacing:-.03em;font-weight:700;text-align:center;margin:1rem 0 .5rem}
+.shopsign-street{font-family:var(--font-display);font-size:1.6rem;text-transform:uppercase;letter-spacing:.18em;color:var(--color-accent);text-align:center;font-weight:600;margin-bottom:.2rem}
+.shopsign-city{font-family:var(--font-display);font-size:.95rem;text-transform:uppercase;letter-spacing:.28em;color:rgba(245,239,227,.5);text-align:center;font-weight:400}
+.shopsign-bottom{display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--font-display);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,239,227,.45);font-weight:500;margin-right:18px}
+.shopsign-bottom .bb-label{display:block;color:var(--color-accent);font-size:.78rem;letter-spacing:.18em;margin-bottom:.2rem}
 .about-text .sec-desc{max-width:none;margin-bottom:1rem}
 .about-quote{font-family:var(--font-display);font-size:1.6rem;color:var(--color-ink);border-left:4px solid var(--color-accent);padding-left:1.2rem;margin:1.8rem 0;line-height:1.25;letter-spacing:.02em;font-weight:500;text-transform:uppercase}
 .about-quote-author{display:block;font-size:.74rem;color:var(--color-text-muted);letter-spacing:.18em;font-weight:600;margin-top:.6rem;text-transform:none}
@@ -101,17 +107,6 @@ img{max-width:100%;display:block}
 .svc-name{font-family:var(--font-display);font-size:1.25rem;color:var(--color-ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.2rem;font-weight:600}
 .svc-desc{font-size:.86rem;color:var(--color-text-muted);line-height:1.55}
 .svc-price{font-family:var(--font-display);font-size:1.4rem;color:var(--color-accent);font-weight:600;flex-shrink:0;white-space:nowrap}
-
-.gallery-grid{max-width:1100px;margin:2rem auto 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.gal-card{border-radius:var(--radius);overflow:hidden;position:relative;aspect-ratio:4/3;cursor:pointer;box-shadow:0 4px 20px rgba(34,28,23,.1)}
-.gal-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:sepia(.12) contrast(1.05)}
-.gal-card:hover img{transform:scale(1.06)}
-.gal-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(34,28,23,.85),transparent 50%);opacity:0;transition:opacity .3s}
-.gal-card:hover .gal-ov{opacity:1}
-.gal-label{position:absolute;bottom:1rem;left:1rem;right:1rem;transform:translateY(8px);opacity:0;transition:all .3s}
-.gal-card:hover .gal-label{transform:translateY(0);opacity:1}
-.gal-label h4{font-family:var(--font-display);color:#fff;font-size:1.15rem;margin-bottom:.1rem;letter-spacing:.06em;text-transform:uppercase}
-.gal-label p{color:rgba(255,255,255,.75);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase}
 
 .testi-sec{background:var(--color-ink);color:#f5efe3}
 .testi-sec .sec-title{color:#fff}
@@ -160,19 +155,20 @@ img{max-width:100%;display:block}
   .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(245,239,227,.98);padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid var(--color-border)}
   .hero{min-height:92vh;padding:6rem 1.5rem 3rem}
   .about-grid{grid-template-columns:1fr;gap:2.5rem}
-  .about-img{max-width:420px;margin:0 auto}
+  .shopsign{max-width:420px;margin:0 auto;aspect-ratio:auto;min-height:380px}
   .stats{gap:1.8rem;padding:1.8rem 1rem}
   .sec{padding:4rem 1.2rem}
   .services-grid{grid-template-columns:1fr}
   .svc-row{border-right:none!important}
-  .gallery-grid{grid-template-columns:1fr 1fr}
   .contact-sec{padding:4rem 1.2rem}
   .map-wrap{height:240px}
 }
 @media(max-width:480px){
-  .gallery-grid{grid-template-columns:1fr}
   .hero-btns{flex-direction:column;align-items:center}
   .stats{flex-direction:column;gap:1.4rem}
+  .hero-pole{width:8px}
+  .hero-pole.left{left:3%}
+  .hero-pole.right{right:3%}
 }
 </style>
 </head>
@@ -185,7 +181,6 @@ img{max-width:100%;display:block}
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#gallery">Shop</a></li>
     <li><a href="#reviews">Reviews</a></li>
     <li><a href="#visit">Visit</a></li>
   </ul>
@@ -196,11 +191,8 @@ img{max-width:100%;display:block}
 </nav>
 
 <section class="hero">
-  <div class="hero-bg">
-    <!-- REPLACE WITH REAL PHOTO of the shop on Main St or a barber at the chair -->
-    <img src="https://images.unsplash.com/photo-1567894340315-735d7c361db0?w=1600&q=80" alt="Ron's Barber Shop in Sandwich, IL">
-  </div>
-  <div class="hero-overlay"></div>
+  <div class="hero-pole left" aria-hidden="true"></div>
+  <div class="hero-pole right" aria-hidden="true"></div>
   <div class="hero-content">
     <span class="hero-est fade-up">Downtown Sandwich · 90 N Main St</span>
     <h1 class="hero-title fade-up d1">Ron's Barber Shop<span>Old-School Cuts. Fair Prices. No Fuss.</span></h1>
@@ -233,10 +225,17 @@ img{max-width:100%;display:block}
 
 <section class="sec" id="about">
   <div class="about-grid">
-    <div class="about-img fade-up">
-      <!-- REPLACE WITH REAL PHOTO of Ron, the chair, or the shop interior -->
-      <img src="https://images.unsplash.com/photo-1517832606299-7ae9b720a186?w=900&q=80" alt="Inside Ron's Barber Shop">
-      <div class="about-img-badge">A Sandwich Staple</div>
+    <div class="shopsign fade-up">
+      <div class="shopsign-top">Est. on Main Street</div>
+      <div>
+        <div class="shopsign-num">90</div>
+        <div class="shopsign-street">North Main Street</div>
+        <div class="shopsign-city">Sandwich · Illinois</div>
+      </div>
+      <div class="shopsign-bottom">
+        <div><span class="bb-label">Walk-Ins</span>Always Welcome</div>
+        <div style="text-align:right"><span class="bb-label">Suite</span>No. 2</div>
+      </div>
     </div>
     <div class="about-text">
       <span class="sec-label fade-up">Our Story</span>
@@ -311,47 +310,6 @@ img{max-width:100%;display:block}
         <p class="svc-desc">Between cuts. Keeps the line crisp.</p>
       </div>
       <span class="svc-price">$8</span>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="gallery">
-  <div class="sec-center">
-    <span class="sec-label fade-up">The Shop</span>
-    <h2 class="sec-title fade-up d1">Inside Ron's</h2>
-    <p class="sec-desc fade-up d2">Three chairs, a coat rack, the local paper on the table, and a barber pole out front. Just like it should be.</p>
-  </div>
-  <div class="gallery-grid">
-    <!-- REPLACE all images with real photos from the shop -->
-    <div class="gal-card fade-up">
-      <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=700&q=80" alt="">
-      <div class="gal-ov"></div>
-      <div class="gal-label"><h4>Classic Side Part</h4><p>The Standard</p></div>
-    </div>
-    <div class="gal-card fade-up d1">
-      <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=700&q=80" alt="">
-      <div class="gal-ov"></div>
-      <div class="gal-label"><h4>The Chair</h4><p>Same one since '78</p></div>
-    </div>
-    <div class="gal-card fade-up d2">
-      <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=700&q=80" alt="">
-      <div class="gal-ov"></div>
-      <div class="gal-label"><h4>Hot Towel</h4><p>The Right Way</p></div>
-    </div>
-    <div class="gal-card fade-up">
-      <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=700&q=80" alt="">
-      <div class="gal-ov"></div>
-      <div class="gal-label"><h4>Tapered Cut</h4><p>Clean Lines</p></div>
-    </div>
-    <div class="gal-card fade-up d1">
-      <img src="https://images.unsplash.com/photo-1622296089780-290d715192af?w=700&q=80" alt="">
-      <div class="gal-ov"></div>
-      <div class="gal-label"><h4>Beard Work</h4><p>Trim & Line</p></div>
-    </div>
-    <div class="gal-card fade-up d2">
-      <img src="https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?w=700&q=80" alt="">
-      <div class="gal-ov"></div>
-      <div class="gal-label"><h4>Out Front</h4><p>90 N Main St</p></div>
     </div>
   </div>
 </section>
@@ -440,17 +398,11 @@ img{max-width:100%;display:block}
         <div class="contact-row-value"><a href="tel:+18157868144">(815) 786-8144</a></div>
       </div>
     </div>
-    <!-- CLAUDE: Confirm actual hours with Ron — these are believable defaults for a small-town barbershop -->
     <div class="contact-row">
       <span class="contact-row-icon">🕐</span>
       <div>
         <div class="contact-row-label">Hours</div>
-        <div class="contact-row-value">
-          Mon &nbsp;Closed<br>
-          Tue – Fri &nbsp;8:00 AM – 5:30 PM<br>
-          Sat &nbsp;8:00 AM – 1:00 PM<br>
-          Sun &nbsp;Closed
-        </div>
+        <div class="contact-row-value">Call for hours · <a href="tel:+18157868144">(815) 786-8144</a></div>
       </div>
     </div>
   </div>
